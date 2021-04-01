@@ -4,20 +4,23 @@ package banking_system;
 public class Saving extends Account {
 	
 	// declaring variable using private access modifier
-	private String accType;
-	private String accNo_accType;
-	private int maxTranNumberPerDay;
-	private double maxTransAmountPerDay;
-	private double minAmount;
+	protected String accType;
+	protected String accNo_accType;
+	protected int maxTranNumberPerDay;
+	protected double maxTransAmountPerDay;
+	protected double minAmount;
 	
 	// constructor
-	public Saving(int accNo, String name, int contact, String email, String city, int pincode, double balance, double interestRate, String ifsc, String upi, String accType, String accNo_accType, int maxTranNumberPerDay, double maxTransAmountPerDay, double minAmount) {
-		super(accNo, name, contact, email, city, pincode, balance, interestRate, ifsc, upi);
+	public Saving(int accNo, String name, int contact, String email, String city, int pincode, String accType) {
+		super(accNo, name, contact, email, city, pincode);
 		this.accType = accType;
-		this.accNo_accType = accNo_accType;
-		this.maxTranNumberPerDay = maxTranNumberPerDay;
-		this.maxTransAmountPerDay = maxTransAmountPerDay;
-		this.minAmount = minAmount;
+		this.accNo_accType = accNo+"_"+accType;
+		this.maxTranNumberPerDay = 2;
+		this.maxTransAmountPerDay = 10000.0;
+		this.minAmount = 1000.0;
+		this.interestRate = 4.5;
+		this.balance = 1000.0;
+		this.upi = name + "@oksaving";
 	}
 
 	// getter and setter methods for all the variables
@@ -92,8 +95,7 @@ public class Saving extends Account {
 	
 	// defining the method that will transfer amount
 	public void transferAmount(Account account, double transAmount) {
-		boolean flag = false;
-		if(flag){
+		if(account instanceof FixedDeposit){
 			System.out.println("\nSorry! The account entered is Fixed Deposit, and in Fixed Deposit no money can be transferred!");
 			System.out.println("\nAs there's no transfer possible,\nThe account holder "+this.name+" having account number as "+this.accNo+" has "+this.balance+" balance.\nThe account holder "+account.name+" having account number as "+account.accNo+" has "+account.balance+" balance.");   
         }  else {
@@ -120,8 +122,7 @@ public class Saving extends Account {
 
 	// defining the method that will perform upi transfer
 	public void upiTransfer(Account account, double amount) {
-		boolean flag = false;
-		if(flag){
+		if(account instanceof FixedDeposit){
 			System.out.println("\nSorry! The account entered is Fixed Deposit, and no amount can be transferred in the Fixed Deposit account!");
 			System.out.println("\nAs there's no transfer possible,\nThe account holder "+this.name+" having account number as "+this.accNo+" has "+this.balance+" balance.\nThe account holder "+account.name+" having account number as "+account.accNo+" has "+account.balance+" balance.");   
         } else {

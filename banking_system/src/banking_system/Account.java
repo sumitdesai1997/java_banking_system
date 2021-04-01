@@ -16,17 +16,17 @@ abstract public class Account {
 	protected String upi;
 	
 	// constructor
-	public Account(int accNo, String name, int contact, String email, String city, int pincode, double balance, double interestRate, String ifsc, String upi) {
+	public Account(int accNo, String name, int contact, String email, String city, int pincode) {
 		this.accNo = accNo;
 		this.name = name;
 		this.contact = contact;
 		this.email = email;
 		this.city = city;
 		this.pincode = pincode;
-		this.balance = balance;
-		this.interestRate = interestRate;
-		this.ifsc = ifsc;
-		this.upi = upi;
+		this.balance = 0.0;
+		this.interestRate = 0.0;
+		this.ifsc = "SBCO60466";
+		this.upi = name + "okaccount";
 	}
 
 	

@@ -5,11 +5,13 @@ public class FixedDeposit extends Account{
 	double amountToDeposit;
 	int durationInMonth;
 	
-	public FixedDeposit(int accNo, String name, int contact, String email, String city, int pincode, double balance, double interestRate, String ifsc, String upi, String accNo_accType, double amountToDeposit, int durationInMonth) {
-		super(accNo, name, contact, email, city, pincode, balance, interestRate, ifsc, upi);
-		this.accNo_accType = accNo_accType;
+	public FixedDeposit(int accNo, String name, int contact, String email, String city, int pincode, double amountToDeposit, int durationInMonth) {
+		super(accNo, name, contact, email, city, pincode);
+		this.accNo_accType = accNo+"_"+"Fixed Deposit";
 		this.amountToDeposit = amountToDeposit;
 		this.durationInMonth = durationInMonth;
+		this.interestRate = 8.0;
+		this.balance = amountToDeposit;
 	}
 
 	public String getAccNo_accType() {
@@ -69,6 +71,7 @@ public class FixedDeposit extends Account{
 	public void payBills(String toWhom, double payAmount) {
 		System.out.println("\\nThis is Fixed Deposit account, and no bills can be paid from this account!");  		
 	}
+	
 	// defining the method that will perform upi transfer
 	public void upiTransfer(Account account, double amount) {
 		System.out.println("\\nThis is Fixed Deposit account, and no transaction can be done from this account!");  

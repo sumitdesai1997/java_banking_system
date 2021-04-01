@@ -1,11 +1,19 @@
 package banking_system;
 
 public class Current extends Saving {
-	String panCardNo;
+	private String panCardNo;
 
-	public Current(int accNo, String name, int contact, String email, String city, int pincode, double balance, double interestRate, String ifsc, String upi, String accType, String accNo_accType, int maxTranNumberPerDay, double maxTransAmountPerDay, double minAmount, String panCardNo) {
-		super(accNo, name, contact, email, city, pincode, balance, interestRate, ifsc, upi, accType, accNo_accType, maxTranNumberPerDay, maxTransAmountPerDay, minAmount);
+	public Current(int accNo, String name, int contact, String email, String city, int pincode, String accType, String panCardNo) {
+		super(accNo, name, contact, email, city, pincode, accType);
 		this.panCardNo = panCardNo;
+		
+		this.accNo_accType = accNo+"_"+accType;
+		this.interestRate = 1.0;
+		this.balance = 3000.0;
+		this.maxTranNumberPerDay = 20;
+		this.maxTransAmountPerDay = 100000.0;
+		this.minAmount = 3000.0;
+		this.upi = name + "@okcurrent";
 	}
 
 	public String getPanCardNo() {
@@ -45,8 +53,7 @@ public class Current extends Saving {
 		
 		// defining the method that will transfer amount
 		public void transferAmount(Account account, double transAmount) {
-			boolean flag = false;
-			if(flag){
+			if(account instanceof FixedDeposit){
 				System.out.println("\nSorry! The account entered is Fixed Deposit, and in Fixed Deposit no money can be transferred!");
 				System.out.println("\nAs there's no transfer possible,\nThe account holder "+this.name+" having account number as "+this.accNo+" has "+this.balance+" balance.\nThe account holder "+account.name+" having account number as "+account.accNo+" has "+account.balance+" balance.");   
 	        }  else {
@@ -73,8 +80,7 @@ public class Current extends Saving {
 
 		// defining the method that will perform upi transfer
 		public void upiTransfer(Account account, double amount) {
-			boolean flag = false;
-			if(flag){
+			if(account instanceof FixedDeposit){
 				System.out.println("\nSorry! The account entered is Fixed Deposit, and no amount can be transferred in the Fixed Deposit account!");
 				System.out.println("\nAs there's no transfer possible,\nThe account holder "+this.name+" having account number as "+this.accNo+" has "+this.balance+" balance.\nThe account holder "+account.name+" having account number as "+account.accNo+" has "+account.balance+" balance.");   
 	        } else {
