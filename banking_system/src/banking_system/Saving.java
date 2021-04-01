@@ -65,9 +65,11 @@ public class Saving extends Account {
 	public String toString() {
 		return "Saving [accType=" + accType + ", accNo_accType=" + accNo_accType + ", maxTranNumberPerDay="
 				+ maxTranNumberPerDay + ", maxTransAmountPerDay=" + maxTransAmountPerDay + ", minAmount=" + minAmount
-				+ "]";
+				+ ", accNo=" + accNo + ", name=" + name + ", contact=" + contact + ", email=" + email + ", city=" + city
+				+ ", pincode=" + pincode + ", balance=" + balance + ", interestRate=" + interestRate + ", ifsc=" + ifsc
+				+ ", upi=" + upi + "]";
 	}
-	
+
 	// defining the method that will display the balance
 	public double displayBalance() {
 		System.out.println("\nBalance for this Saving account: " +balance);
