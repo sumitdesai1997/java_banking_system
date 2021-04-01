@@ -23,7 +23,7 @@ public class Current extends Saving {
 				+ ", interestRate=" + interestRate + ", ifsc=" + ifsc + ", upi=" + upi + "]";
 	}
 
-	// defining the method that will display the balance
+		// defining the method that will display the balance
 		public double displayBalance() {
 			System.out.println("\nBalance for this Saving account: " +balance);
 			return balance;
