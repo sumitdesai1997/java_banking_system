@@ -25,22 +25,22 @@ public class Current extends Saving {
 
 		// defining the method that will display the balance
 		public double displayBalance() {
-			System.out.println("\nBalance for this Saving account: " +balance);
+			System.out.println("\nBalance for this Current account: " +balance);
 			return balance;
 		}
 		
 		// defining the method that will deposit amount
 		public void depositeAmount(double depAmount) {
-			double serviceCharge = 10.0;
+			double serviceCharge = 20.0;
 			balance += depAmount - serviceCharge;
-			System.out.println("\nThe amount deposited for this Saving account is: "+depAmount+"." +"\nNew balance after depoist is "+balance+" after deduction of "+serviceCharge+" as a service charge for Saving account.");
+			System.out.println("\nThe amount deposited for this Current account is: "+depAmount+"." +"\nNew balance after depoist is "+balance+" after deduction of "+serviceCharge+" as a service charge for Current account.");
 		}
 		
 		// defining the method that will withdraw the amount
 		public void withdrawalAmount(double withAmount) {
 			double serviceCharge = 10.0;
 			balance -= withAmount + serviceCharge;
-			System.out.println("\nThe withdrawn amount for this Saving account is: "+withAmount+"." +"\nNew balance after depoist is "+balance+" after deduction of "+serviceCharge+" as a service charge for Saving account.");
+			System.out.println("\nThe withdrawn amount for this Current account is: "+withAmount+"." +"\nNew balance after depoist is "+balance+" after deduction of "+serviceCharge+" as a service charge for Current account.");
 		}
 		
 		// defining the method that will transfer amount
@@ -52,6 +52,8 @@ public class Current extends Saving {
 	        }  else {
 				account.balance += transAmount;
 				this.balance -= transAmount;
+				System.out.println("\nAmount "+transAmount+" is transffered to the account number "+account.accNo);
+				System.out.println("\nAfter this transaction,\nThe account holder "+this.name+" having account number as "+this.accNo+" has "+this.balance+" balance.\nThe account holder "+account.name+" having account number as "+account.accNo+" has "+account.balance+" balance.");
 			}
 		}
 		

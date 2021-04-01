@@ -99,6 +99,8 @@ public class Saving extends Account {
         }  else {
 			account.balance += transAmount;
 			this.balance -= transAmount;
+			System.out.println("\nAmount "+transAmount+" is transffered to the account number "+account.accNo);
+			System.out.println("\nAfter this transaction,\nThe account holder "+this.name+" having account number as "+this.accNo+" has "+this.balance+" balance.\nThe account holder "+account.name+" having account number as "+account.accNo+" has "+account.balance+" balance.");   
 		}
 	}
 	
