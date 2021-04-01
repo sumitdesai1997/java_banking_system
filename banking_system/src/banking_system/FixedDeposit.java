@@ -1,17 +1,27 @@
 package banking_system;
 
 public class FixedDeposit extends Account{
-	String accNo_accType;
-	double amountToDeposit;
-	int durationInMonth;
+	private String accType;
+	private String accNo_accType;
+	private double amountToDeposit;
+	private int durationInMonth;
 	
 	public FixedDeposit(int accNo, String name, int contact, String email, String city, int pincode, double amountToDeposit, int durationInMonth) {
 		super(accNo, name, contact, email, city, pincode);
+		this.accType = "Fixed Deposit";
 		this.accNo_accType = accNo+"_"+"Fixed Deposit";
 		this.amountToDeposit = amountToDeposit;
 		this.durationInMonth = durationInMonth;
 		this.interestRate = 8.0;
 		this.balance = amountToDeposit;
+	}
+
+	public String getAccType() {
+		return accType;
+	}
+
+	public void setAccType(String accType) {
+		this.accType = accType;
 	}
 
 	public String getAccNo_accType() {
