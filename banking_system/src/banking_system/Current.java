@@ -3,7 +3,7 @@ package banking_system;
 public class Current extends Saving {
 	private String panCardNo;
 
-	public Current(int accNo, String name, int contact, String email, String city, int pincode, String accType, String panCardNo) {
+	public Current(int accNo, String name, long contact, String email, String city, int pincode, String accType, String panCardNo) {
 		super(accNo, name, contact, email, city, pincode, accType);
 		this.panCardNo = panCardNo;
 		

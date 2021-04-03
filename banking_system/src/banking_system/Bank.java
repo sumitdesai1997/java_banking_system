@@ -26,7 +26,7 @@ public class Bank {
 	        String name = sc.next();
 	        
 	        System.out.println("\nEnter the contact number for account holder:");
-	        int contact = sc.nextInt();
+	        long contact = sc.nextLong();
 	        
 	        System.out.println("\nEnter the email id for account holder:");
 	        String email = sc.next();
@@ -182,7 +182,7 @@ public class Bank {
 		                switch (sc.nextInt()){
 		                    case 1:
 		                    	System.out.println("\nPlease enter new Contact number:");
-		                        int newContact = sc.nextInt();
+		                        long newContact = sc.nextLong();
 		                        account.contact = newContact; // update the contact value for the required account
 		                        break;
 		                    case 2:
@@ -219,8 +219,6 @@ public class Bank {
 		    }
 		    break;
 		}
-		
-		sc.close();
 		
 		// loop for printing the account details that are created
 		for (Account account:accountList){
@@ -282,12 +280,14 @@ public class Bank {
 		            case 1:
 		                // to display the balance
 		                double balance = requiredAcc.displayBalance();
+		                break;
 		            case 2:
 		                // to deposite the amount
 		            	System.out.println("\nPlease enter the amount you want to add:");
 		                double depAmount = sc.nextDouble();
 		                
 		                requiredAcc.depositeAmount(depAmount);    
+		                break;
 		            case 3:
 		                // to withdraw the amount
 		                if(requiredAcc instanceof FixedDeposit){ // type checking
@@ -320,6 +320,7 @@ public class Bank {
 		                        requiredAcc.withdrawalAmount(withAmount);     
 		                    }
 		                }
+		                break;
 		            case 4:
 		                // to transfer amount from one account to another account
 		                if(requiredAcc instanceof FixedDeposit){ // type checking
@@ -356,6 +357,7 @@ public class Bank {
 		                    	System.out.println("\nSorry! The account number entered is not found in the Bank!");
 		                    }
 		                }
+		                break;
 		            case 5:
 		                // pay utility bills
 		                if(requiredAcc instanceof FixedDeposit){ // type checking
@@ -382,6 +384,7 @@ public class Bank {
 		                            } else{
 		                                requiredAcc.payBills(toWhom, payAmount);
 		                            }
+		                            break;
 		                        case 2:
 		                            // electricty bill
 		                            toWhom = "Electricity bill";
@@ -397,6 +400,7 @@ public class Bank {
 		                            } else{
 		                                requiredAcc.payBills(toWhom, payAmount);
 		                            }
+		                            break;
 		                        case 3:
 		                            // mobile serviceCharge
 		                            toWhom = "Mobile recharge";
@@ -412,6 +416,7 @@ public class Bank {
 		                            } else{
 		                                requiredAcc.payBills(toWhom, payAmount);
 		                            }
+		                            break;
 		                        case 4:
 		                            // dth recharge
 		                            toWhom = "DTH recharge";
@@ -427,10 +432,12 @@ public class Bank {
 		                            } else{
 		                                requiredAcc.payBills(toWhom, payAmount);
 		                            }
+		                            break;
 		                        default:
 		                        	System.out.println("\nSorry! Wrong choice!");
 		                    }
 		                }
+		                break;
 		            case 6:
 		                // UPI transfer
 		                if(requiredAcc instanceof FixedDeposit){ // type checking and display the message if its FixedDeposit deposit account
@@ -443,7 +450,7 @@ public class Bank {
 		                        String againUPI = "no";
 		                        
 		                        for (Account account:accountList){
-		                            if(account.upi == upi && requiredAcc.name != account.name){
+		                            if(account.upi.equalsIgnoreCase(upi) && !requiredAcc.name.equalsIgnoreCase(account.name)){
 		                                upiFound = "yes";
 		                                
 		                                System.out.println("\nPlease enter the amount that needs to be transfer:");
@@ -453,19 +460,21 @@ public class Bank {
 		                            }
 		                        }
 		                        
-		                        if(upiFound == "no"){
+		                        if(upiFound.equalsIgnoreCase("no")){
 		                        	System.out.println("\nSorry! This UPI id is not linked with any of the account!");
 		                        	System.out.println("\nWould you like to enter the UPI id again? yes/no");
 		                            againUPI = sc.next();
 		                        }
-		                        if(againUPI == "no"){
+		                        if(againUPI.equalsIgnoreCase("no")){
 		                            break;
 		                        }
 		                    }
 		                }
+		                break;
 		            case 7:
 		                // if user wants to not perform any operations
 		                exit = 1;
+		                break;
 		            default:
 		            	System.out.println("\nSorry! Wrong choice!");
 		        }
@@ -476,6 +485,7 @@ public class Bank {
 		    
 		    System.out.println("\nWould you like to enter any other account number? yes/no");
 		    if(!sc.next().equalsIgnoreCase("yes")){
+		    	System.out.println("\nThank you for using our service! Please come again!");
 		        break; // terminate the while loop if user don't want to add any other account number
 		    }
 		}

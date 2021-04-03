@@ -6,7 +6,7 @@ public class Account {
 	// declaring variable using protected access modifier
 	protected int accNo;
 	protected String name;
-	protected int contact;
+	protected long contact;
 	protected String email;
 	protected String city;
 	protected int pincode;
@@ -28,7 +28,7 @@ public class Account {
         this.ifsc = "";
         this.upi = "";
 	}
-	public Account(int accNo, String name, int contact, String email, String city, int pincode) {
+	public Account(int accNo, String name, long contact, String email, String city, int pincode) {
 		this.accNo = accNo;
 		this.name = name;
 		this.contact = contact;
@@ -59,11 +59,11 @@ public class Account {
 		this.name = name;
 	}
 
-	public int getContact() {
+	public long getContact() {
 		return contact;
 	}
 
-	public void setContact(int contact) {
+	public void setContact(long contact) {
 		this.contact = contact;
 	}
 

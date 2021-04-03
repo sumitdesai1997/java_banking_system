@@ -6,7 +6,7 @@ public class FixedDeposit extends Account{
 	protected double amountToDeposit;
 	protected int durationInMonth;
 	
-	public FixedDeposit(int accNo, String name, int contact, String email, String city, int pincode, double amountToDeposit, int durationInMonth) {
+	public FixedDeposit(int accNo, String name, long contact, String email, String city, int pincode, double amountToDeposit, int durationInMonth) {
 		super(accNo, name, contact, email, city, pincode);
 		this.accType = "Fixed Deposit";
 		this.accNo_accType = accNo+"_"+"Fixed Deposit";

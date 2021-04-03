@@ -11,7 +11,7 @@ public class Saving extends Account {
 	protected double minAmount;
 	
 	// constructor
-	public Saving(int accNo, String name, int contact, String email, String city, int pincode, String accType) {
+	public Saving(int accNo, String name, long contact, String email, String city, int pincode, String accType) {
 		super(accNo, name, contact, email, city, pincode);
 		this.accType = accType;
 		this.accNo_accType = accNo+"_"+accType;
