@@ -1,7 +1,7 @@
 package banking_system;
 
 // abstract Account class that will become super class for all other account type classes
-abstract public class Account {
+public class Account {
 	
 	// declaring variable using protected access modifier
 	protected int accNo;
@@ -132,16 +132,29 @@ abstract public class Account {
 	
 	
 	// all the abstract methods that will be defined in child classes
-	abstract public double displayBalance();
+	public double displayBalance() {
+		System.out.println("This method will display the balance of the account");
+		return 0;
+	};
 	
-	abstract public void depositeAmount(double depAmount);
+	public void depositeAmount(double depAmount) {
+		System.out.println("This method will help to deposit the amount into the account");
+	};
 	
-	abstract public void withdrawalAmount(double withAmount);
+	public void withdrawalAmount(double withAmount) {
+		System.out.println("This method will help to withdraw the amount from the account");
+	};
 	
-	abstract public void transferAmount(Account account, double transAmount);
+	public void transferAmount(Account account, double transAmount) {
+		System.out.println("This method will help to transfer the amount from one account to other the account");
+	};
 	
-	abstract public void payBills(String toWhom, double payAmount);
+	public void payBills(String toWhom, double payAmount) {
+		System.out.println("This method will help to pay the bills from the account");
+	};
 	
-	abstract public void upiTransfer(Account account, double amount);
+	public void upiTransfer(Account account, double amount) {
+		System.out.println("This method will help to perform UPI transferbetween the bank accounts");
+	};
 	
 }
