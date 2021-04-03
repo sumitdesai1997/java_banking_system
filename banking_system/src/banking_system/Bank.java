@@ -11,23 +11,26 @@ public class Bank {
 			Scanner sc = new Scanner(System.in);
 			ArrayList<Account> accountList = new ArrayList<>();
 			
-			fillData(accountList, sc);
+			FileWriter user = new FileWriter("D:\\userFile.txt", true);
+			PrintWriter userPW =new PrintWriter(user);
 			
-			editAccountDetails(accountList, sc);
+			fillData(accountList, sc, userPW);
+			
+			editAccountDetails(accountList, sc, userPW);
 			
 			performOperations(accountList, sc);	
+		}catch(IOException e) {
+			System.out.println("IOException occured!");
+			e.printStackTrace();
 		}catch(Exception e) {
-			System.out.println("Exception occured");
+			System.out.println("Exception occured!");
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public static void fillData(ArrayList<Account> accountList, Scanner sc) {
+	public static void fillData(ArrayList<Account> accountList, Scanner sc, PrintWriter userPW) {
 		try {
-			
-			FileWriter user = new FileWriter("D:\\userFile.txt", true);
-			PrintWriter userPW =new PrintWriter(user);
 			
 			do {
 				int flag = 0 ;
@@ -151,7 +154,8 @@ public class Bank {
 		        System.out.println("\nDo you want to create more account: yes/no");
 			}while(sc.next().equalsIgnoreCase("yes"));
 			
-			userPW.close();
+			userPW.flush();
+			
 			// loop for printing the account details that are created
 			for (Account account:accountList){
 				System.out.println("\nName of account holder: "+account.name);
@@ -177,16 +181,13 @@ public class Bank {
 	        		System.out.println("Deposit duration in months: "+((FixedDeposit) account).getDurationInMonth());
 			    }
 			}
-		}catch(IOException e) {
-			System.out.println("IOException occured!");
-			e.printStackTrace();
 		}catch(Exception e) {
 			System.out.println("Exception occured!");
 			e.printStackTrace();
 		}
 	}
 	
-	public static void editAccountDetails(ArrayList<Account> accountList, Scanner sc) {
+	public static void editAccountDetails(ArrayList<Account> accountList, Scanner sc, PrintWriter userPW) {
 		// loop to continue until the user wants to modify the account details
 		while(true){
 			System.out.println("\nDo you want to edit your account details? yes/no");
@@ -212,21 +213,33 @@ public class Bank {
 		                    	System.out.println("\nPlease enter new Contact number:");
 		                        long newContact = sc.nextLong();
 		                        account.contact = newContact; // update the contact value for the required account
+		                        
+		                        userPW.println(account.toString());
+		                        
 		                        break;
 		                    case 2:
 		                    	System.out.println("\nPlease enter new Email id:");
 		                        String newEmail = sc.next();
 		                        account.email = newEmail; // update the email value for the required account
+		                        
+		                        userPW.println(account.toString());
+		                        
 		                        break;
 		                    case 3:
 		                    	System.out.println("\nPlease enter new City:");
 		                        String newCity = sc.next();
 		                        account.city = newCity; // update the city value for the required account
+		                        
+		                        userPW.println(account.toString());
+		                        
 		                        break;
 		                    case 4:
 		                    	System.out.println("\nPlease enter new Pincode:");
 		                        int newPincode = sc.nextInt();
 		                        account.pincode = newPincode; // update the pincode value for the required account
+		                        
+		                        userPW.println(account.toString());
+		                        
 		                        break;
 		                    default:
 		                    	System.out.println("\nSorry! Wrong choice!");
@@ -245,6 +258,7 @@ public class Bank {
 		        	break;
 		        }
 		    }
+		    userPW.flush();
 		    break;
 		}
 		

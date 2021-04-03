@@ -51,7 +51,7 @@ public class FixedDeposit extends Account{
 	
 	@Override
 	public String toString() {
-		return "FixedDeposit [accNo=" + accNo + ", name=" + name +", contact=" + contact + ", email=" + email +
+		return "Fixed Deposit [accNo=" + accNo + ", name=" + name +", contact=" + contact + ", email=" + email +
 				", city=" + city + ", pincode=" + pincode + ", balance=" + balance + ", interestRate=" + interestRate +
 				", ifsc=" + ifsc + ", upi=" + upi +", accType=" + accType + ", accNo_accType=" + accNo_accType + ", amountToDeposit="
 				+ amountToDeposit + ", durationInMonth=" + durationInMonth + "]";
