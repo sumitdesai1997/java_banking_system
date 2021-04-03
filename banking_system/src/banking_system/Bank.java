@@ -2,19 +2,35 @@ package banking_system;
 
 
 import java.util.*;
-//import java.io.*;
+import java.io.*;
 
 public class Bank {
 
-	public static void main(String[] args) {	
-		Scanner sc = new Scanner(System.in);
-		ArrayList<Account> accountList = new ArrayList<>();
+	public static void main(String[] args) {
+		try {
+			Scanner sc = new Scanner(System.in);
+			ArrayList<Account> accountList = new ArrayList<>();
+			
+			File file = new File("D:\\userFile.txt");
+			
+			if(file.createNewFile()) {
+				System.out.println("File created:" +file.getName());
+			}else {
+				System.out.println("File already exist!");
+			}
+			fillData(accountList, sc);
+			
+			editAccountDetails(accountList, sc);
+			
+			performOperations(accountList, sc);	
+		} catch(IOException e) {
+			System.out.println("IOException occured");
+			e.printStackTrace();
+		} catch(Exception e) {
+			System.out.println("Exception occured");
+			e.printStackTrace();
+		}
 		
-		fillData(accountList, sc);
-		
-		editAccountDetails(accountList, sc);
-		
-		performOperations(accountList, sc);
 	}
 	
 	public static void fillData(ArrayList<Account> accountList, Scanner sc) {
@@ -60,8 +76,8 @@ public class Bank {
 	                    	 System.out.println("\n The client "+name+" already has Saving account. Please choose other option!");
 	                    } else {
 	                        String accType = "Saving";
-	                        System.out.println("\nPlease enter the Saving account number:");
-	                        int accNo = sc.nextInt();
+	                        int accNo = Integer.parseInt(getRandomNumberString());
+	                        System.out.println("\nYour Saving account number is: "+accNo);
 	                        
 	                        System.out.println("\nAs this is Saving account, you have to deposit minimum amount of 1000.0");
 	                        accountList.add(new Saving(accNo, name, contact, email, city, pincode, accType));
@@ -81,8 +97,8 @@ public class Bank {
 	                    	System.out.println("\n The client "+name+" already has Current account. Please choose other option!");
 	                    } else {
 	                        String accType = "Current";
-	                        System.out.println("\nPlease enter the Current account number:");
-	                        int accNo = sc.nextInt();
+	                        int accNo = Integer.parseInt(getRandomNumberString());
+	                        System.out.println("\nYour Current account number is: "+accNo);
 	                        
 	                        System.out.println("\nPlease enter the PAN card number:");
 	                        String panCardNo = sc.next();
@@ -104,9 +120,9 @@ public class Bank {
 	                    if(flag == 1){
 	                    	System.out.println("\n The client "+name+" already has Fixed Deposit account. Please choose other option!");
 	                    } else {
-	                    	System.out.println("\nPlease enter the Fixed Deposit account number:");
-	                        int accNo = sc.nextInt();
-	                        
+	                    	int accNo = Integer.parseInt(getRandomNumberString());
+	                    	System.out.println("\nYour Fixed deposit account number is: "+accNo);
+	                    	
 	                        System.out.println("\nPlease enter the amount that needs to be deposited:");
 	                        double amountToDeposit = sc.nextDouble();
 	                        
@@ -491,6 +507,14 @@ public class Bank {
 		}
 
 
+	}
+	
+	public static String getRandomNumberString() {
+	    Random random = new Random();
+	    int number = random.nextInt(999999);
+
+	    // this will convert any number sequence into 6 character.
+	    return String.format("%06d", number);
 	}
 
 }
