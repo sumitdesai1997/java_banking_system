@@ -38,7 +38,7 @@ public class Account {
 		this.balance = 0.0;
 		this.interestRate = 0.0;
 		this.ifsc = "SBCO60466";
-		this.upi = name + "okaccount";
+		this.upi = name + "@okaccount";
 	}
 
 	

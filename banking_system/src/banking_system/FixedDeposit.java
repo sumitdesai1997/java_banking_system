@@ -48,14 +48,15 @@ public class FixedDeposit extends Account{
 		this.durationInMonth = durationInMonth;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "FixedDeposit [accNo_accType=" + accNo_accType + ", amountToDeposit=" + amountToDeposit
-				+ ", durationInMonth=" + durationInMonth + ", accNo=" + accNo + ", name=" + name + ", contact="
-				+ contact + ", email=" + email + ", city=" + city + ", pincode=" + pincode + ", balance=" + balance
-				+ ", interestRate=" + interestRate + ", ifsc=" + ifsc + ", upi=" + upi + "]";
+		return "FixedDeposit [accNo=" + accNo + ", name=" + name +", contact=" + contact + ", email=" + email +
+				", city=" + city + ", pincode=" + pincode + ", balance=" + balance + ", interestRate=" + interestRate +
+				", ifsc=" + ifsc + ", upi=" + upi +", accType=" + accType + ", accNo_accType=" + accNo_accType + ", amountToDeposit="
+				+ amountToDeposit + ", durationInMonth=" + durationInMonth + "]";
 	}
-	
+
 	public double displayBalance() {
 		System.out.println("\nBalance for this Fixed Deposit account: " +balance);
 		return balance;

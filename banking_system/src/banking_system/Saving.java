@@ -66,11 +66,10 @@ public class Saving extends Account {
 
 	@Override
 	public String toString() {
-		return "Saving [accType=" + accType + ", accNo_accType=" + accNo_accType + ", maxTranNumberPerDay="
-				+ maxTranNumberPerDay + ", maxTransAmountPerDay=" + maxTransAmountPerDay + ", minAmount=" + minAmount
-				+ ", accNo=" + accNo + ", name=" + name + ", contact=" + contact + ", email=" + email + ", city=" + city
+		return "Saving [accNo=" + accNo + ", name=" + name + ", contact=" + contact + ", email=" + email + ", city=" + city
 				+ ", pincode=" + pincode + ", balance=" + balance + ", interestRate=" + interestRate + ", ifsc=" + ifsc
-				+ ", upi=" + upi + "]";
+				+ ", upi=" + upi +", accType=" + accType + ", accNo_accType=" + accNo_accType + ", maxTranNumberPerDay="
+						+ maxTranNumberPerDay + ", maxTransAmountPerDay=" + maxTransAmountPerDay + ", minAmount=" + minAmount + "]";
 	}
 
 	// defining the method that will display the balance
