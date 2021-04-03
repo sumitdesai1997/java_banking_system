@@ -1,10 +1,10 @@
 package banking_system;
 
 public class FixedDeposit extends Account{
-	private String accType;
-	private String accNo_accType;
-	private double amountToDeposit;
-	private int durationInMonth;
+	protected String accType;
+	protected String accNo_accType;
+	protected double amountToDeposit;
+	protected int durationInMonth;
 	
 	public FixedDeposit(int accNo, String name, int contact, String email, String city, int pincode, double amountToDeposit, int durationInMonth) {
 		super(accNo, name, contact, email, city, pincode);

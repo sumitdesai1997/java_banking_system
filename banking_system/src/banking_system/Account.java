@@ -16,6 +16,18 @@ abstract public class Account {
 	protected String upi;
 	
 	// constructor
+	public Account() {
+		this.accNo = 0;
+        this.name = "";
+        this.contact = 0;
+        this.email = "";
+        this.city = "";
+        this.pincode = 0;
+        this.balance = 0.0;
+        this.interestRate = 0.0;
+        this.ifsc = "";
+        this.upi = "";
+	}
 	public Account(int accNo, String name, int contact, String email, String city, int pincode) {
 		this.accNo = accNo;
 		this.name = name;
