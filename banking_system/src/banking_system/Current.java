@@ -29,7 +29,7 @@ public class Current extends Saving {
 		return "Current [accNo=" + accNo + ", name=" + name + ", contact=" + contact + ", email=" + email + ", city=" + city
 				+ ", pincode=" + pincode + ", balance=" + balance + ", interestRate=" + interestRate + ", ifsc=" + ifsc
 				+ ", upi=" + upi +", accType=" + accType + ", accNo_accType=" + accNo_accType + ", maxTranNumberPerDay="
-						+ maxTranNumberPerDay + ", maxTransAmountPerDay=" + maxTransAmountPerDay + ", minAmount=" + minAmount + ", panCardNo" + panCardNo +"]";
+						+ maxTranNumberPerDay + ", maxTransAmountPerDay=" + maxTransAmountPerDay + ", minAmount=" + minAmount + ", panCardNo=" + panCardNo +"]";
 	}
 
 	// defining the method that will display the balance
@@ -47,7 +47,7 @@ public class Current extends Saving {
 	
 	// defining the method that will withdraw the amount
 	public void withdrawalAmount(double withAmount) {
-		double serviceCharge = 10.0;
+		double serviceCharge = 20.0;
 		balance -= withAmount + serviceCharge;
 		System.out.println("\nThe withdrawn amount for this Current account is: "+withAmount+"." +"\nNew balance after depoist is "+balance+" after deduction of "+serviceCharge+" as a service charge for Current account.");
 	}
