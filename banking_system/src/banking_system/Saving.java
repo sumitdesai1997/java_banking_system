@@ -22,6 +22,18 @@ public class Saving extends Account {
 		this.balance = 1000.0;
 		this.upi = name + "@oksaving";
 	}
+	
+	public Saving(int accNo, String name, long contact, String email, String city, int pincode, String accType, double balance) {
+		super(accNo, name, contact, email, city, pincode);
+		this.accType = accType;
+		this.accNo_accType = accNo+"_"+accType;
+		this.maxTranNumberPerDay = 2;
+		this.maxTransAmountPerDay = 10000.0;
+		this.minAmount = 1000.0;
+		this.interestRate = 4.5;
+		this.balance = balance;
+		this.upi = name + "@oksaving";
+	}
 
 	// getter and setter methods for all the variables
 	public String getAccType() {

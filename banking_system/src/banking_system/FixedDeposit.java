@@ -15,6 +15,16 @@ public class FixedDeposit extends Account{
 		this.interestRate = 8.0;
 		this.balance = amountToDeposit;
 	}
+	
+	public FixedDeposit(int accNo, String name, long contact, String email, String city, int pincode, double amountToDeposit, int durationInMonth, double balance) {
+		super(accNo, name, contact, email, city, pincode);
+		this.accType = "Fixed Deposit";
+		this.accNo_accType = accNo+"_"+"Fixed Deposit";
+		this.amountToDeposit = amountToDeposit;
+		this.durationInMonth = durationInMonth;
+		this.interestRate = 8.0;
+		this.balance = balance;
+	}
 
 	public String getAccType() {
 		return accType;

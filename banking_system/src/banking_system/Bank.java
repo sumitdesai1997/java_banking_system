@@ -21,56 +21,63 @@ public class Bank {
 			FileInputStream userFile = new FileInputStream("D:\\userFile.txt");
 			BufferedReader userBR = new BufferedReader(new InputStreamReader(userFile));
 			
-			String singleUserDetail;  
-            while((singleUserDetail=userBR.readLine())!=null) {
-            	String fields[]=singleUserDetail.split(",");
-            	int accNo = Integer.parseInt(fields[0].split("=")[1]);
-            	String name = fields[1].split("=")[1];
-            	long contact = Long.parseLong(fields[2].split("=")[1]);  
-            	String email = fields[3].split("=")[1];
-            	String city = fields[4].split("=")[1];
-            	int pincode = Integer.parseInt(fields[5].split("=")[1]);
-            	double balance = Double.parseDouble(fields[6].split("=")[1]);
-            	double interestRate = Double.parseDouble(fields[7].split("=")[1]);
-            	String ifsc = fields[8].split("=")[1];
-            	String upi = fields[9].split("=")[1];
-            	String accType = fields[10].split("=")[1];
-            	String accNo_accType = fields[11].split("=")[1];
-            	
-            	if(accType.equalsIgnoreCase("Saving")) {
-            		int maxTranNumberPerDay = Integer.parseInt(fields[12].split("=")[1]);
-            		double maxTransAmountPerDay = Double.parseDouble(fields[13].split("=")[1]);
-            		String min = fields[14].split("=")[1];
-            		double minAmount = Double.parseDouble(min.substring(0,min.length()-1));
-            		
-            		accountList.add(new Saving(accNo, name, contact, email, city, pincode, accType));
-            	} else if(accType.equalsIgnoreCase("Current")) {
-            		int maxTranNumberPerDay = Integer.parseInt(fields[12].split("=")[1]);
-            		double maxTransAmountPerDay = Double.parseDouble(fields[13].split("=")[1]);
-            		double minAmount = Double.parseDouble(fields[14].split("=")[1]);
-            		String pan = fields[15].split("=")[1];
-            		String panCardNo = pan.substring(0,pan.length()-1);
-            		
-            		accountList.add(new Current(accNo, name, contact, email, city, pincode, accType, panCardNo));
-            	} else {
-            		double amountToDeposit = Double.parseDouble(fields[12].split("=")[1]);
-            		String duration = fields[13].split("=")[1];
-            		int durationInMonth = Integer.parseInt(duration.substring(0,duration.length()-1));
-            		
-            		accountList.add(new FixedDeposit(accNo, name, contact, email, city, pincode, amountToDeposit, durationInMonth));
-            	}
-            }
+			fillArrayListFromFile(accountList, userBR);
             
-            System.out.println("\n1. Create new bank account\n2. Update details in existing bank account");
-            int choice = sc.nextInt();
+			/*
+			 * for (Account account:accountList){
+			 * System.out.println("\nName of account holder: "+account.name);
+			 * System.out.println("Account number: "+account.accNo);
+			 * System.out.println("Contact number: "+account.contact);
+			 * System.out.println("Email id: "+account.email);
+			 * System.out.println("City: "+account.city);
+			 * System.out.println("Pincode: "+account.pincode);
+			 * System.out.println("IFSC: "+account.ifsc);
+			 * 
+			 * if (account instanceof Current){ // type checking
+			 * System.out.println("Account type: "+((Current) account).accType);
+			 * System.out.println("PAN Card numner: "+((Current) account).getPanCardNo());
+			 * System.out.println("Maximun number of transaction per day :"+((Current)
+			 * account).maxTranNumberPerDay);
+			 * System.out.println("Maximum amount allowed to transact per day :"+((Current)
+			 * account).maxTransAmountPerDay); } else if (account instanceof Saving){ //type
+			 * checking System.out.println("Account type: "+((Saving) account).accType);
+			 * System.out.println("Maximun number of transaction per day :"+((Saving)
+			 * account).maxTranNumberPerDay);
+			 * System.out.println("Maximum amount allowed to transact per day :"+((Saving)
+			 * account).maxTransAmountPerDay); } else if (account instanceof
+			 * FixedDeposit){// type checking
+			 * System.out.println("Account type: "+((FixedDeposit)account).getAccType());
+			 * System.out.println("Deposit amount: "+((FixedDeposit)
+			 * account).getAmountToDeposit());
+			 * System.out.println("Deposit duration in months: "+((FixedDeposit)
+			 * account).getDurationInMonth()); } }
+			 */
+			
+            System.out.println("1. Create new bank account\n2. Update details in existing bank account\n3. Perform operations");
+            int choice1 = sc.nextInt();
             
-            if(choice == 2) {
-            	editAccountDetails(accountList, sc, userPW, userBR);
-            } else {
+            if(choice1 == 1) {
             	fillData(accountList, sc, userPW, userBR);
+            	System.out.println("\n1. Update details in existing bank account\n2. Perform operations");
+                int choice2 = sc.nextInt();
+                if(choice2 == 1) {
+                	editAccountDetails(accountList, sc, userPW, userBR);
+                } else {
+                	performOperations(accountList, sc);	                	
+                }
+            } else if(choice1 == 2){
+            	editAccountDetails(accountList, sc, userPW, userBR);
+            	System.out.println("\n1. Create new bank account\n2. Perform operations");
+                int choice3 = sc.nextInt();
+                if(choice3 == 1) {
+                	fillData(accountList, sc, userPW, userBR);
+                } else {
+                	performOperations(accountList, sc);	                	
+                }
+            } else {
+            	performOperations(accountList, sc);	
             }
 			
-			performOperations(accountList, sc);	
 			
 			sc.close();
 			userPW.close();
@@ -211,36 +218,6 @@ public class Bank {
 			
 			userPW.flush();
 			
-			// loop for printing the account details that are created
-			/*
-			 * for (Account account:accountList){
-			 * System.out.println("\nName of account holder: "+account.name);
-			 * System.out.println("Account number: "+account.accNo);
-			 * System.out.println("Contact number: "+account.contact);
-			 * System.out.println("Email id: "+account.email);
-			 * System.out.println("City: "+account.city);
-			 * System.out.println("Pincode: "+account.pincode);
-			 * System.out.println("IFSC: "+account.ifsc);
-			 * 
-			 * if (account instanceof Current){ // type checking
-			 * System.out.println("Account type: "+((Current) account).accType);
-			 * System.out.println("PAN Card numner: "+((Current) account).getPanCardNo());
-			 * System.out.println("Maximun number of transaction per day :"+((Current)
-			 * account).maxTranNumberPerDay);
-			 * System.out.println("Maximum amount allowed to transact per day :"+((Current)
-			 * account).maxTransAmountPerDay); } else if (account instanceof Saving){ //
-			 * type checking System.out.println("Account type: "+((Saving)
-			 * account).accType);
-			 * System.out.println("Maximun number of transaction per day :"+((Saving)
-			 * account).maxTranNumberPerDay);
-			 * System.out.println("Maximum amount allowed to transact per day :"+((Saving)
-			 * account).maxTransAmountPerDay); } else if (account instanceof FixedDeposit){
-			 * // type checking System.out.println("Account type: "+((FixedDeposit)
-			 * account).getAccType()); System.out.println("Deposit amount: "+((FixedDeposit)
-			 * account).getAmountToDeposit());
-			 * System.out.println("Deposit duration in months: "+((FixedDeposit)
-			 * account).getDurationInMonth()); } }
-			 */
 		}catch(Exception e) {
 			System.out.println("Exception occured!");
 			e.printStackTrace();
@@ -305,7 +282,8 @@ public class Bank {
 			                        int newPincode = sc.nextInt();
 			                        account.pincode = newPincode; // update the pincode value for the required account
 			                        
-			                        userPW.println(account.toString());
+			                        updateDetails(count, account.toString());
+			                        //userPW.println(account.toString());
 			                        
 			                        break;
 			                    default:
@@ -367,6 +345,7 @@ public class Bank {
 	
 	public static void performOperations(ArrayList<Account> accountList, Scanner sc) {
 		// loop to continue until the user wants to select the different options from user menu
+		int count = 0;
 		while(true){
 		    Account requiredAcc = new Account();
 		    
@@ -374,8 +353,8 @@ public class Bank {
 		    	System.out.println("\nPlease enter your account number to choose different options provided by the bank:");
 		        int userAccNo = sc.nextInt();
 		        int flag = 0;
-		        
 		        for (Account account:accountList){
+		        	count += 1;
 		            if(account.accNo == userAccNo){
 		                flag = 1; // flag will have value 1 if the account number entered by user is found in the system
 		                requiredAcc = account;
@@ -404,7 +383,9 @@ public class Bank {
 		            	System.out.println("\nPlease enter the amount you want to add:");
 		                double depAmount = sc.nextDouble();
 		                
-		                requiredAcc.depositeAmount(depAmount);    
+		                requiredAcc.depositeAmount(depAmount);
+		                
+		                updateDetails(count, requiredAcc.toString());
 		                break;
 		            case 3:
 		                // to withdraw the amount
@@ -438,6 +419,8 @@ public class Bank {
 		                        requiredAcc.withdrawalAmount(withAmount);     
 		                    }
 		                }
+		                
+		                updateDetails(count, requiredAcc.toString());
 		                break;
 		            case 4:
 		                // to transfer amount from one account to another account
@@ -448,7 +431,9 @@ public class Bank {
 		                    int accountNo = sc.nextInt();
 		                    String accountFound = "no";
 		                    
+		                    int newCount = 0;
 		                    for (Account account:accountList) {
+		                    	newCount += 1;
 		                        if(accountNo == account.accNo){
 		                            while(true){
 		                                String diffFlag = "no";
@@ -457,7 +442,9 @@ public class Bank {
 		                                double transAmount = sc.nextDouble();
 		                                // if the account number is found and user have sufficient balance to transfer then perform the operation
 		                                if(transAmount <= requiredAcc.balance){
-		                                    requiredAcc.transferAmount(account,transAmount);    
+		                                    requiredAcc.transferAmount(account,transAmount);  
+		                                    
+		                                    updateDetails(newCount, account.toString());
 		                                } else {
 		                                // if the account number is found and user don't have sufficient balance to transfer then display the message
 		                                	System.out.println("\nSorry! You have only "+requiredAcc.balance+" balance in your account!");
@@ -475,6 +462,8 @@ public class Bank {
 		                    	System.out.println("\nSorry! The account number entered is not found in the Bank!");
 		                    }
 		                }
+		                
+		                updateDetails(count, requiredAcc.toString());
 		                break;
 		            case 5:
 		                // pay utility bills
@@ -555,6 +544,8 @@ public class Bank {
 		                        	System.out.println("\nSorry! Wrong choice!");
 		                    }
 		                }
+		                
+		                updateDetails(count, requiredAcc.toString());
 		                break;
 		            case 6:
 		                // UPI transfer
@@ -567,13 +558,17 @@ public class Bank {
 		                        String upi = sc.next();
 		                        String againUPI = "no";
 		                        
+		                        int newCount = 0;
 		                        for (Account account:accountList){
+		                        	newCount += 1;
 		                            if(account.upi.equalsIgnoreCase(upi) && !requiredAcc.name.equalsIgnoreCase(account.name)){
 		                                upiFound = "yes";
 		                                
 		                                System.out.println("\nPlease enter the amount that needs to be transfer:");
 		                                double amount = sc.nextDouble();
 		                                requiredAcc.upiTransfer(account, amount);
+		                                
+		                                updateDetails(newCount, account.toString());
 		                                break;
 		                            }
 		                        }
@@ -588,6 +583,8 @@ public class Bank {
 		                        }
 		                    }
 		                }
+		                
+		                updateDetails(count, requiredAcc.toString());
 		                break;
 		            case 7:
 		                // if user wants to not perform any operations
@@ -609,6 +606,57 @@ public class Bank {
 		}
 
 
+	}
+	
+	public static void fillArrayListFromFile(ArrayList<Account> accountList, BufferedReader userBR) {
+		try {
+			String singleUserDetail;  
+	        while((singleUserDetail=userBR.readLine())!=null) {
+	        	String fields[]=singleUserDetail.split(",");
+	        	int accNo = Integer.parseInt(fields[0].split("=")[1]);
+	        	String name = fields[1].split("=")[1];
+	        	long contact = Long.parseLong(fields[2].split("=")[1]);  
+	        	String email = fields[3].split("=")[1];
+	        	String city = fields[4].split("=")[1];
+	        	int pincode = Integer.parseInt(fields[5].split("=")[1]);
+	        	double balance = Double.parseDouble(fields[6].split("=")[1]);
+	        	double interestRate = Double.parseDouble(fields[7].split("=")[1]);
+	        	String ifsc = fields[8].split("=")[1];
+	        	String upi = fields[9].split("=")[1];
+	        	String accType = fields[10].split("=")[1];
+	        	String accNo_accType = fields[11].split("=")[1];
+	        	
+	        	if(accType.equalsIgnoreCase("Saving")) {
+	        		int maxTranNumberPerDay = Integer.parseInt(fields[12].split("=")[1]);
+	        		double maxTransAmountPerDay = Double.parseDouble(fields[13].split("=")[1]);
+	        		String min = fields[14].split("=")[1];
+	        		double minAmount = Double.parseDouble(min.substring(0,min.length()-1));
+	        		
+	        		accountList.add(new Saving(accNo, name, contact, email, city, pincode, accType, balance));
+	        	} else if(accType.equalsIgnoreCase("Current")) {
+	        		int maxTranNumberPerDay = Integer.parseInt(fields[12].split("=")[1]);
+	        		double maxTransAmountPerDay = Double.parseDouble(fields[13].split("=")[1]);
+	        		double minAmount = Double.parseDouble(fields[14].split("=")[1]);
+	        		String pan = fields[15].split("=")[1];
+	        		String panCardNo = pan.substring(0,pan.length()-1);
+	        		
+	        		accountList.add(new Current(accNo, name, contact, email, city, pincode, accType, panCardNo, balance));
+	        	} else {
+	        		double amountToDeposit = Double.parseDouble(fields[12].split("=")[1]);
+	        		String duration = fields[13].split("=")[1];
+	        		int durationInMonth = Integer.parseInt(duration.substring(0,duration.length()-1));
+	        		
+	        		accountList.add(new FixedDeposit(accNo, name, contact, email, city, pincode, amountToDeposit, durationInMonth, balance));
+	        	}
+	        }
+		
+		}catch(IOException e) {
+			System.out.println("IOException occured!");
+			e.printStackTrace();
+		}catch(Exception e) {
+			System.out.println("Exception occured!");
+			e.printStackTrace();
+		}
 	}
 	
 	public static String getRandomNumberString() {

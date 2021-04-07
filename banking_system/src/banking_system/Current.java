@@ -15,6 +15,19 @@ public class Current extends Saving {
 		this.minAmount = 3000.0;
 		this.upi = name + "@okcurrent";
 	}
+	
+	public Current(int accNo, String name, long contact, String email, String city, int pincode, String accType, String panCardNo, double balance) {
+		super(accNo, name, contact, email, city, pincode, accType);
+		this.panCardNo = panCardNo;
+		
+		this.accNo_accType = accNo+"_"+accType;
+		this.interestRate = 1.0;
+		this.balance = balance;
+		this.maxTranNumberPerDay = 20;
+		this.maxTransAmountPerDay = 100000.0;
+		this.minAmount = 3000.0;
+		this.upi = name + "@okcurrent";
+	}
 
 	public String getPanCardNo() {
 		return panCardNo;
